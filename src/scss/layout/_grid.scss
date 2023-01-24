@@ -1,12 +1,14 @@
+@use "../util" as u;
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto;
-  gap: 40px;
-  width: min(100% - 40px, 1000px);
+  gap: u.rem(40);
+  width: min(100% - u.rem(40), 1000px);
   margin-inline: auto;
 
-  @media (min-width: 900px) {
+  @include u.breackpoint(large) {
     grid-template-columns: 2fr 1fr;
     grid-template-rows: auto;
   }
@@ -23,9 +25,38 @@
 
   &__main {
     background-color: hsl(110, 100%, 27%);
+
+    @include u.breackpoint(medium) {
+      background-color: hsl(189, 93%, 34%);
+    }
+
+    @include u.breackpoint(large) {
+      background-color: hsl(323, 93%, 34%);
+    }
   }
 
   &__sidebar {
+    @include u.breackpoint-down(medium) {
+      text-align: center;
+    }
+
+    @include u.breackpoint-down(small) {
+      text-align: right;
+    }
+  }
+
+  &__widget {
     background-color: hsl(27, 92%, 35%);
+    padding: u.rem(16);
+
+    &_green {
+      @extend .grid__widget;
+      background-color: hsl(120, 98%, 20%);
+    }
+
+    &_red {
+      @extend .grid__widget;
+      background-color: hsl(0, 94%, 28%);
+    }
   }
 }
